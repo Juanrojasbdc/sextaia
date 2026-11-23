@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SextaIA: tecnología y vida</title>
+<meta name="description" content="Tecnología, animales y soluciones de impacto social. Empezamos por los insectos.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪲</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script>
+/* Aplica el tema guardado (o el del sistema) antes de pintar, para evitar parpadeo */
+(function(){var t=null;try{t=localStorage.getItem("tema")}catch(e){}
+if(!t)t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+document.documentElement.setAttribute("data-theme",t)})();
+</script>
+<style>
+:root{--bg:#fff;--fg:#000;--suave:#5c5c5c;--linea:#e2e2e2;--panel:#f5f5f5;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--serif:"Source Serif 4",Georgia,serif}
+:root[data-theme=dark]{--bg:#000;--fg:#fff;--suave:#a1a1a1;--linea:#262626;--panel:#111}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.65 var(--serif);transition:background .25s,color .25s}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--linea)}
+nav{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font:800 1.3rem var(--display);text-decoration:none;letter-spacing:-.02em}
+.menu{display:flex;align-items:center;gap:24px}
+.menu a{font:500 .95rem var(--display);text-decoration:none;color:var(--suave)}
+.menu a:hover{color:var(--fg)}
+#tema{font:500 .9rem var(--display);background:none;color:var(--fg);border:1.5px solid var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
+#tema:hover{background:var(--fg);color:var(--bg)}
+.hero{min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{font:800 clamp(2.5rem,7.5vw,5rem)/1 var(--display);letter-spacing:-.04em;margin:0 0 24px;max-width:15ch}
+.hero p{font-size:1.2rem;color:var(--suave);margin:0 0 34px;max-width:50ch}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);font:700 1rem var(--display);padding:14px 28px;border-radius:999px;text-decoration:none;border:2px solid var(--fg)}
+.btn:hover{background:var(--bg);color:var(--fg)}
+.alas{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:min(680px,80vw);aspect-ratio:900/582;z-index:1;background:var(--fg);-webkit-mask:url(logo.png) center/contain no-repeat;mask:url(logo.png) center/contain no-repeat;opacity:.9}
+@media (max-width:900px){.alas{opacity:.12;right:-120px}}
+@media (prefers-reduced-motion:no-preference){
+  .alas{animation:trazo 2.4s cubic-bezier(.6,.05,.2,1) both}
+  @keyframes trazo{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+}
+section{padding:80px 0}
+h2{font:700 clamp(1.8rem,4vw,2.6rem)/1.1 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+.sub{color:var(--suave);margin:0 0 32px;max-width:60ch}
+.pilares{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--linea)}
+.pilar{padding:32px 28px;border-right:1px solid var(--linea)}
+.pilar:last-child{border-right:0}
+.pilar h3{font:700 1.3rem var(--display);margin:0 0 8px}
+.pilar p{margin:0;color:var(--suave);font-size:1rem}
+.buscar{width:100%;font:inherit;font-size:1rem;padding:14px 18px;background:var(--bg);color:var(--fg);border:1.5px solid var(--fg);border-radius:12px;margin-bottom:20px}
+.grupo{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.grupo span{font:500 .9rem var(--display);color:var(--suave);min-width:56px}
+.grupo button{font:500 .9rem var(--display);background:transparent;color:var(--fg);border:1.5px solid var(--linea);padding:6px 15px;border-radius:999px;cursor:pointer}
+.grupo button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:28px}
+.post{background:var(--panel);border:1px solid var(--linea);padding:26px;border-radius:16px;cursor:pointer;text-align:left;font:inherit;color:inherit;display:block;width:100%}
+.post:hover{border-color:var(--fg)}
+.post small{font:500 .85rem var(--display);color:var(--suave)}
+.post h3{font:700 1.3rem/1.25 var(--display);margin:8px 0}
+.post p{margin:0;color:var(--suave);font-size:1rem}
+.vacio{grid-column:1/-1;padding:40px;border:1.5px dashed var(--linea);border-radius:16px;color:var(--suave)}
+article{max-width:68ch}
+article h1{font:800 clamp(2rem,5vw,3.2rem)/1.05 var(--display);letter-spacing:-.035em;margin:10px 0 18px}
+article p{margin:0 0 1.1em}
+.volver{font:500 1rem var(--display);background:none;border:0;color:var(--fg);cursor:pointer;padding:0;text-decoration:underline;margin-bottom:20px}
+.adjunto{display:inline-block;margin-top:10px;font:700 1rem var(--display);border:2px solid var(--fg);padding:10px 22px;border-radius:999px;text-decoration:none}
+.adjunto:hover{background:var(--fg);color:var(--bg)}
+.nosotros{background:var(--fg);color:var(--bg)}
+.nosotros p{opacity:.8;max-width:62ch;margin:0}
+footer{padding:36px 0;color:var(--suave);font-size:.95rem}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#inicio">SextaIA</a>
+      <div class="menu">
+        <a href="#pilares">Temas</a><a href="#bitacora">Bitácora</a><a href="#proyecto">Proyecto</a>
+        <button id="tema" type="button" aria-pressed="false">Modo oscuro</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero" id="inicio">
+    <div class="alas" role="img" aria-label="Logo de SextaIA: espiral"></div>
+    <div class="wrap">
+      <h1>Los insectos ya resolvieron problemas que la ingeniería apenas empieza a plantear.</h1>
+      <p>Estudiamos cómo vuelan, se orientan, construyen y se organizan los insectos, y qué tecnologías pueden nacer de ahí.</p>
+      <a class="btn" href="#bitacora">Leer la bitácora</a>
+    </div>
+  </div>
+
+  <section id="pilares">
+    <div class="wrap">
+      <h2>Qué encontrarás aquí</h2>
+      <p class="sub">Información clara sobre tecnología y desarrollo, con la naturaleza como punto de partida.</p>
+      <div class="pilares">
+        <div class="pilar"><h3>Tecnología</h3><p>Cómo funcionan las soluciones y qué problema resuelven de verdad.</p></div>
+        <div class="pilar"><h3>Animales</h3><p>Empezamos por los insectos. Después sumaremos otros reinos.</p></div>
+        <div class="pilar"><h3>Impacto social</h3><p>Emprendedores y empresas que convierten tecnología en beneficio real.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bitacora" style="padding-top:0">
+    <div class="wrap">
+      <div id="vista-lista">
+        <h2>Bitácora</h2>
+        <p class="sub">Estudios, análisis y casos. Busca por palabra o filtra por reino y tema.</p>
+        <input class="buscar" id="buscar" type="search" placeholder="Buscar en la bitácora" aria-label="Buscar en la bitácora">
+        <div class="grupo" id="f-reino" role="group" aria-label="Filtrar por reino"></div>
+        <div class="grupo" id="f-tema" role="group" aria-label="Filtrar por tema"></div>
+        <div class="lista" id="lista"></div>
+      </div>
+      <div id="vista-post" hidden>
+        <button class="volver" id="volver" type="button">Volver a la bitácora</button>
+        <article id="articulo"></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="nosotros" id="proyecto">
+    <div class="wrap">
+      <h2>Por qué SextaIA</h2>
+      <p>El sexto día de la creación llegaron los animales y los seres humanos. De ahí el nombre. Este sitio parte de una curiosidad de infancia, coleccionar insectos y ranas en campamentos, y la convierte en investigación: qué puede aprender la tecnología de la naturaleza y cómo medirlo con datos.</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© <span id="anio"></span> SextaIA. sextaia.com</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ============ CONFIGURACIÓN ============
+   Pega aquí los datos de tu proyecto Supabase (Project Settings > API).
+   La clave "anon" es pública por diseño. Nunca uses la "service_role". */
+const SUPABASE_URL = "";
+const SUPABASE_ANON_KEY = "";
+
+/* Entradas de ejemplo: se muestran hasta que configures Supabase. */
+const EJEMPLOS = [
+  {id:"e1",titulo:"Alas de libélula y drones que no se estrellan",reino:"Insectos",categoria:"Tecnología",resumen:"Las libélulas corrigen su vuelo en milisegundos. Qué de eso ya se usa en robótica.",cuerpo:"Esta es una entrada de ejemplo.\n\nBórrala cuando publiques la primera real desde Supabase.",created_at:"2026-11-22"},
+  {id:"e2",titulo:"Cómo se orientan las hormigas sin GPS",reino:"Insectos",categoria:"Tecnología",resumen:"Contar pasos y leer la luz polarizada: un sistema barato que inspira algoritmos.",cuerpo:"Entrada de ejemplo.\n\nAquí irá el estudio completo.",created_at:"2026-11-22"},
+  {id:"e3",titulo:"Cómo medir el impacto social de una solución tecnológica",reino:"General",categoria:"Impacto social",resumen:"Preguntas básicas para separar un buen discurso de un resultado verificable.",cuerpo:"Entrada de ejemplo.\n\nAquí analizaremos casos de emprendedores y empresas con fuentes verificables.",created_at:"2026-11-22"}
+];
+
+const $ = id => document.getElementById(id);
+let posts = [], fReino = "Todos", fTema = "Todos", q = "";
+$("anio").textContent = new Date().getFullYear();
+
+/* Modo claro / oscuro */
+const raiz = document.documentElement, btnTema = $("tema");
+function marcarTema(){
+  const oscuro = raiz.getAttribute("data-theme") === "dark";
+  btnTema.textContent = oscuro ? "Modo claro" : "Modo oscuro";
+  btnTema.setAttribute("aria-pressed", oscuro);
+}
+btnTema.onclick = () => {
+  const nuevo = raiz.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  raiz.setAttribute("data-theme", nuevo);
+  try{ localStorage.setItem("tema", nuevo); }catch(e){}
+  marcarTema();
+};
+marcarTema();
+
+async function cargar(){
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY){ posts = EJEMPLOS; return; }
+  try{
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const {data,error} = await db.from("posts").select("*").eq("publicado",true).order("created_at",{ascending:false});
+    if(error) throw error;
+    posts = data;
+  }catch(e){
+    console.error(e); posts = [];
+    $("lista").innerHTML = '<div class="vacio">No se pudo cargar la bitácora. Revisa la configuración de Supabase.</div>';
+  }
+}
+
+const fecha = s => new Date(s).toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"});
+
+function grupo(el, etiqueta, valores, actual, alElegir){
+  const t = document.createElement("span"); t.textContent = etiqueta;
+  el.replaceChildren(t, ...["Todos", ...valores].map(v=>{
+    const b = document.createElement("button"); b.type="button"; b.textContent=v;
+    b.setAttribute("aria-pressed", v===actual); b.onclick=()=>alElegir(v); return b;
+  }));
+}
+function pintarFiltros(){
+  const u = k => [...new Set(posts.map(p=>p[k]).filter(Boolean))];
+  grupo($("f-reino"),"Reino",u("reino"),fReino,v=>{fReino=v;pintarFiltros();pintarLista();});
+  grupo($("f-tema"),"Tema",u("categoria"),fTema,v=>{fTema=v;pintarFiltros();pintarLista();});
+}
+
+function pintarLista(){
+  const n = q.trim().toLowerCase();
+  const items = posts.filter(p =>
+    (fReino==="Todos"||p.reino===fReino) && (fTema==="Todos"||p.categoria===fTema) &&
+    (!n || [p.titulo,p.resumen,p.cuerpo].join(" ").toLowerCase().includes(n)));
+  if(!items.length){ $("lista").innerHTML='<div class="vacio">No hay entradas con esos filtros. Prueba con otra búsqueda.</div>'; return; }
+  $("lista").replaceChildren(...items.map(p=>{
+    const b = document.createElement("button"); b.className="post"; b.type="button";
+    const s = document.createElement("small"); s.textContent = [p.reino, p.categoria, fecha(p.created_at)].filter(Boolean).join(", ");
+    const h = document.createElement("h3"); h.textContent = p.titulo;
+    const r = document.createElement("p"); r.textContent = p.resumen || "";
+    b.append(s,h,r); b.onclick = ()=>abrir(p); return b;
+  }));
+}
+$("buscar").oninput = e => { q = e.target.value; pintarLista(); };
+
+function abrir(p){
+  const a = $("articulo"); a.replaceChildren();
+  const s = document.createElement("small"); s.textContent = [p.reino, p.categoria, fecha(p.created_at)].filter(Boolean).join(", ");
+  const h = document.createElement("h1"); h.textContent = p.titulo;
+  a.append(s,h);
+  (p.cuerpo||"").split(/\n{2,}/).forEach(t=>{ const x=document.createElement("p"); x.textContent=t; a.append(x); });
+  if(p.file_url && /^https:\/\//.test(p.file_url)){
+    const l = document.createElement("a"); l.className="adjunto"; l.href=p.file_url;
+    l.target="_blank"; l.rel="noopener"; l.textContent="Abrir archivo adjunto"; a.append(l);
+  }
+  $("vista-lista").hidden = true; $("vista-post").hidden = false;
+  $("bitacora").scrollIntoView();
+}
+$("volver").onclick = ()=>{ $("vista-post").hidden = true; $("vista-lista").hidden = false; };
+
+cargar().then(()=>{ pintarFiltros(); pintarLista(); });
+</script>
+</body>
+</html>
